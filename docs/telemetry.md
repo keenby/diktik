@@ -1,5 +1,12 @@
 # Telemetry System
 
+> **Default-off amendment (2026-07-24):** telemetry is now **opt-in and disabled
+> by default**. `AppPreferences.isTelemetryEnabled` defaults to `false`, and both
+> the app and CLI wire a `NoOpTelemetryService` unless the user has explicitly
+> enabled telemetry, so nothing is sent on a default install. Everything below
+> describes the pipeline that is reactivated when a user opts in. See
+> [ADR-012](../spec/adr/012-telemetry-system.md).
+>
 > Status: **ACTIVE** — Design document for MacParakeet's privacy-first analytics system.
 > Vendor limits and prices are point-in-time planning inputs, not product
 > contracts; verify current Cloudflare documentation before capacity or cost

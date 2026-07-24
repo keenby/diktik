@@ -16,6 +16,20 @@ final class HotkeyGestureControllerTests: XCTestCase {
         )
     }
 
+    func testStartupDebounceMatchesTapThresholdSoShortTapsStartNoRecording() {
+        // A short Fn tap (e.g. the macOS input-source switch gesture) must not
+        // begin any recording. Scheduling the startup-debounce timer at the same
+        // duration as the hold window guarantees the provisional recording never
+        // fires before the tap-vs-hold decision is made.
+        XCTAssertEqual(
+            FnKeyStateMachine.defaultStartupDebounceMs,
+            FnKeyStateMachine.defaultTapThresholdMs
+        )
+
+        let controller = HotkeyGestureController(mode: .doubleTapAndHold)
+        XCTAssertEqual(controller.startupDebounceMs, controller.tapThresholdMs)
+    }
+
     func testQuickReleaseBeforeStartupShowsReadyForSecondTap() {
         let controller = HotkeyGestureController()
         _ = controller.triggerPressed(timestampMs: 1_000)

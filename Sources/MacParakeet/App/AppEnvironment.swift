@@ -51,7 +51,7 @@ final class AppEnvironment {
     let entitlementsService: EntitlementsService
     let launchAtLoginService: LaunchAtLoginService
     let checkoutURL: URL?
-    let telemetryService: TelemetryService
+    let telemetryService: TelemetryServiceProtocol
     let llmClient: RoutingLLMClient
     let llmConfigStore: LLMConfigStore
     let llmService: LLMService
@@ -345,7 +345,12 @@ final class AppEnvironment {
             }
         )
 
-        let telemetry = TelemetryService()
+        // Telemetry is neutralized by default: unless the user has explicitly
+        // opted in, wire a NoOpTelemetryService so no usage or crash data leaves
+        // the device (the network-backed service is never even constructed).
+        let telemetry: TelemetryServiceProtocol = AppPreferences.isTelemetryEnabled()
+            ? TelemetryService()
+            : NoOpTelemetryService()
         telemetryService = telemetry
         Telemetry.configure(telemetry)
         Telemetry.send(.appLaunched)

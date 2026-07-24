@@ -1,7 +1,18 @@
 # ADR-012: Self-Hosted Telemetry via Cloudflare
 
-> Status: **Accepted**
+> Status: **Accepted** (amended 2026-07-24 — telemetry is now opt-in/off by default)
 > Date: 2026-03-13
+
+> **Amendment (2026-07-24): telemetry disabled by default and neutralized.**
+> The default value of the `telemetryEnabled` preference is now `false`
+> (`AppPreferences.isTelemetryEnabled`), reversing the original opt-out model in
+> favor of opt-in. In addition, the app and CLI wire a `NoOpTelemetryService`
+> whenever telemetry is not explicitly enabled, so the network-backed
+> `TelemetryService` is never constructed and no usage or crash data leaves the
+> device on a default install. The event catalog, wire format, and Cloudflare
+> ingestion pipeline described below remain intact and are reactivated if a user
+> opts in via Settings (`telemetry on`). Crash-report upload rides the same
+> switch and is therefore also off by default.
 
 ## Context
 

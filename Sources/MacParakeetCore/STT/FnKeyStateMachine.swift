@@ -30,7 +30,13 @@ public final class FnKeyStateMachine {
     public static let defaultTapThresholdMs: Int = 400
     public static let minimumTapThresholdMs: Int = 50
     public static let maximumTapThresholdMs: Int = 500
-    public static let defaultStartupDebounceMs: Int = 100
+    /// Delay before a held trigger begins a provisional recording.
+    ///
+    /// Matched to `defaultTapThresholdMs` so a short Fn tap — e.g. the macOS
+    /// "Press 🌐 to change input source" gesture — releases before the timer
+    /// fires and therefore starts no recording. Only a deliberate long-press
+    /// past the tap threshold begins dictation.
+    public static let defaultStartupDebounceMs: Int = 400
 
     /// Cancel window duration (5 seconds)
     public static let cancelWindowMs: Int = 5000

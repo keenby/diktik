@@ -1906,7 +1906,7 @@ MacParakeet's brand is privacy. These are non-negotiable.
 | Requirement | Detail |
 |-------------|--------|
 | Core offline operation | Dictation, file transcription, and meeting recording work fully offline after local model setup |
-| Opt-out telemetry | Self-hosted usage analytics and crash reporting can be disabled in Settings |
+| Opt-in telemetry | Self-hosted usage analytics and crash reporting are disabled by default and neutralized (`NoOpTelemetryService`); can be enabled in Settings (ADR-012) |
 | No accounts | No email, no login, no registration |
 | No cloud STT | All speech recognition runs locally on Apple Silicon; Parakeet is default and Nemotron/Cohere/WhisperKit are optional |
 | User-controlled storage | File/YouTube/meeting audio is retained for playback/recovery unless deleted; dictation audio is opt-in |

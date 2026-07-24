@@ -57,14 +57,18 @@ enum CLITelemetry {
                 isEnabled: { true }
             ))
         case .none:
-            Telemetry.configure(TelemetryService(
-                requestTimeoutInterval: 1.0,
-                surface: "cli",
-                appVersionOverride: CLI.cliVersion,
-                isEnabled: {
-                    AppPreferences.isTelemetryEnabled(defaults: macParakeetAppDefaults())
-                }
-            ))
+            // Telemetry is opt-in and off by default; only construct the
+            // network-backed service when the user has explicitly enabled it.
+            if AppPreferences.isTelemetryEnabled(defaults: macParakeetAppDefaults()) {
+                Telemetry.configure(TelemetryService(
+                    requestTimeoutInterval: 1.0,
+                    surface: "cli",
+                    appVersionOverride: CLI.cliVersion,
+                    isEnabled: { true }
+                ))
+            } else {
+                Telemetry.configure(NoOpTelemetryService())
+            }
         }
     }
 
