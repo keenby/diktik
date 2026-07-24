@@ -1477,9 +1477,11 @@ final class TelemetryServiceTests: XCTestCase {
 
     // MARK: - AppPreferences
 
-    func testTelemetryEnabledDefault() {
+    func testTelemetryDisabledByDefault() {
+        // Telemetry is opt-in: a fresh install sends nothing until the user
+        // explicitly enables it.
         let defaults = UserDefaults(suiteName: "test-telemetry-\(UUID().uuidString)")!
-        XCTAssertTrue(AppPreferences.isTelemetryEnabled(defaults: defaults))
+        XCTAssertFalse(AppPreferences.isTelemetryEnabled(defaults: defaults))
     }
 
     func testTelemetryEnabledRespectsUserChoice() {

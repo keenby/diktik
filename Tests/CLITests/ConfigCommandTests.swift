@@ -52,10 +52,10 @@ final class ConfigCommandTests: XCTestCase {
         ])
     }
 
-    func testReadTelemetryDefaultsToOn() throws {
-        // Mirror AppPreferences.isTelemetryEnabled: missing key → on.
+    func testReadTelemetryDefaultsToOff() throws {
+        // Mirror AppPreferences.isTelemetryEnabled: missing key → off (opt-in).
         let value = try ConfigCommand.read(key: "telemetry", defaults: defaults)
-        XCTAssertEqual(value, "on")
+        XCTAssertEqual(value, "off")
     }
 
     func testReadTelemetryReflectsExplicitFalse() throws {

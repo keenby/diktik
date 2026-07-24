@@ -13,8 +13,11 @@ public enum AppPreferences {
         defaults.object(forKey: menuBarOnlyModeKey) as? Bool ?? false
     }
 
+    /// Telemetry is disabled by default (opt-in). The app additionally wires a
+    /// `NoOpTelemetryService` at startup so no usage or crash data leaves the
+    /// device unless a build explicitly restores the network-backed service.
     public static func isTelemetryEnabled(defaults: UserDefaults = .standard) -> Bool {
-        defaults.object(forKey: telemetryEnabledKey) as? Bool ?? true
+        defaults.object(forKey: telemetryEnabledKey) as? Bool ?? false
     }
 }
 

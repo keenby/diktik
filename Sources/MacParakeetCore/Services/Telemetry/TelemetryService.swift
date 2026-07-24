@@ -99,7 +99,7 @@ public final class TelemetryService: TelemetryServiceProtocol, @unchecked Sendab
         surface: String = "gui",
         appVersionOverride: String? = nil,
         isEnabled: @escaping () -> Bool = {
-            UserDefaults.standard.object(forKey: "telemetryEnabled") as? Bool ?? true
+            UserDefaults.standard.object(forKey: "telemetryEnabled") as? Bool ?? false
         }
     ) {
         if let baseURL {
